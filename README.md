@@ -1,4 +1,4 @@
-# Labrador Puppy – Fabric 1.21.1
+# Labrador Puppy – Fabric 1.20.1
 
 Animated Labrador puppy entity (Idle + Walk) using the original 3D mesh (not cubes).
 
@@ -9,7 +9,7 @@ Animated Labrador puppy entity (Idle + Walk) using the original 3D mesh (not cub
 **Optional, recommended:** generate the wrapper once on a machine with Gradle and commit it:
 `gradle wrapper --gradle-version 8.10.2` then commit `gradlew`, `gradlew.bat`, `gradle/wrapper/gradle-wrapper.jar`.
 
-Requires **JDK 21**. This project has no Gradle wrapper jar; either
+Requires **JDK 17**. This project has no Gradle wrapper jar; either
 * open the folder in IntelliJ IDEA (it imports the Gradle project), or
 * run `gradle wrapper --gradle-version 8.10.2` once (needs a local Gradle), or
 * generate a fresh project at https://fabricmc.net/develop/template and copy `src/`, `tools/`,

@@ -70,7 +70,9 @@ public class PuppyEntity extends AnimalEntity {
         if (stack.isOf(Items.BONE)) {
             if (!this.getWorld().isClient) {
                 this.heal(4.0f);
-                stack.decrementUnlessCreative(1, player);
+                if (!player.getAbilities().creativeMode) {
+                    stack.decrement(1);
+                }
                 ((ServerWorld) this.getWorld()).spawnParticles(ParticleTypes.HEART,
                         this.getX(), this.getBodyY(0.8), this.getZ(), 6, 0.3, 0.2, 0.3, 0.02);
                 this.playSound(SoundEvents.ENTITY_WOLF_PANT, 0.8f, 1.4f);

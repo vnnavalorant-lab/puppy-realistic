@@ -13,7 +13,7 @@ public final class ModItems {
 
     public static final Item PUPPY_SPAWN_EGG = Registry.register(
             Registries.ITEM,
-            Identifier.of(LabradorPuppyMod.MOD_ID, "puppy_spawn_egg"),
+            new Identifier(LabradorPuppyMod.MOD_ID, "puppy_spawn_egg"),
             new SpawnEggItem(ModEntities.PUPPY, 0xEBDCC0, 0x8A6A45, new Item.Settings()));
 
     public static void init() {

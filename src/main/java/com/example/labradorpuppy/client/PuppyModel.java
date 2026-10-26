@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
+import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 /**
@@ -41,27 +42,30 @@ public class PuppyModel extends EntityModel<PuppyEntity> {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay,
+                       float red, float green, float blue, float alpha) {
         MatrixStack.Entry entry = matrices.peek();
         Matrix4f mat = entry.getPositionMatrix();
-        int a = (color >>> 24) & 0xFF, r = (color >>> 16) & 0xFF, g = (color >>> 8) & 0xFF, b = color & 0xFF;
+        Matrix3f nrmMat = entry.getNormalMatrix();
+        int r = (int) (red * 255f), g = (int) (green * 255f), b = (int) (blue * 255f), a = (int) (alpha * 255f);
         int[] tris = mesh.tris;
         for (int i = 0; i < tris.length; i += 3) {
             // a triangle is drawn as a degenerate quad: v0, v1, v2, v2
-            emit(vertices, entry, mat, tris[i], r, g, b, a, overlay, light);
-            emit(vertices, entry, mat, tris[i + 1], r, g, b, a, overlay, light);
-            emit(vertices, entry, mat, tris[i + 2], r, g, b, a, overlay, light);
-            emit(vertices, entry, mat, tris[i + 2], r, g, b, a, overlay, light);
+            emit(vertices, nrmMat, mat, tris[i], r, g, b, a, overlay, light);
+            emit(vertices, nrmMat, mat, tris[i + 1], r, g, b, a, overlay, light);
+            emit(vertices, nrmMat, mat, tris[i + 2], r, g, b, a, overlay, light);
+            emit(vertices, nrmMat, mat, tris[i + 2], r, g, b, a, overlay, light);
         }
     }
 
-    private void emit(VertexConsumer vc, MatrixStack.Entry entry, Matrix4f mat, int v,
+    private void emit(VertexConsumer vc, Matrix3f nrmMat, Matrix4f mat, int v,
                       int r, int g, int b, int a, int overlay, int light) {
         vc.vertex(mat, outPos[v * 3], outPos[v * 3 + 1], outPos[v * 3 + 2])
                 .color(r, g, b, a)
                 .texture(mesh.uv[v * 2], mesh.uv[v * 2 + 1])
                 .overlay(overlay)
                 .light(light)
-                .normal(entry, outNrm[v * 3], outNrm[v * 3 + 1], outNrm[v * 3 + 2]);
+                .normal(nrmMat, outNrm[v * 3], outNrm[v * 3 + 1], outNrm[v * 3 + 2])
+                .next();
     }
 }

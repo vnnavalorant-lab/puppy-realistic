@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class PuppyRenderer extends MobEntityRenderer<PuppyEntity, PuppyModel> {
     private static final Identifier TEXTURE =
-            Identifier.of(LabradorPuppyMod.MOD_ID, "textures/entity/labrador_puppy.png");
+            new Identifier(LabradorPuppyMod.MOD_ID, "textures/entity/labrador_puppy.png");
 
     public PuppyRenderer(EntityRendererFactory.Context context) {
         super(context, new PuppyModel(), 0.3f);
